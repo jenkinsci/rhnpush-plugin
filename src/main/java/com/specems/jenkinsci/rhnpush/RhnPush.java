@@ -1,4 +1,4 @@
-package com.specsavers.jenkinsci.rhnpush;
+package com.specems.jenkinsci.rhnpush;
 
 import hudson.Extension;
 import hudson.FilePath;

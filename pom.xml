@@ -6,7 +6,7 @@
     <version>1.480</version>
   </parent>
 
-  <groupId>com.specsavers.jenkins-ci.plugins</groupId>
+  <groupId>com.specems.jenkins-ci.plugins</groupId>
   <artifactId>rhnpush-plugin</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>hpi</packaging>
