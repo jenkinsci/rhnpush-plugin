@@ -32,7 +32,24 @@
 
 <p><a href="https://buildhive.cloudbees.com/job/specems/job/jenkins-rhnpush-plugin/"><img src="https://buildhive.cloudbees.com/job/specems/job/jenkins-rhnpush-plugin/badge/icon" alt="Build Status"></a></p>
 
-<p>This plugin adds a post build step to push RPMs directly to a Spacewalk or RHN satellite server.</p>
+<p>This plugin adds a post-build step to push RPMs to Spacewalk or RHN satellite server.</p>
+
+<h2>Usage</h2>
+<p>
+Configure some satellite servers in the global config:
+
+<img src="http://specems.github.io/jenkins-rhnpush-plugin/images/satellite-server-config.png" alt="Add satellite server"/>
+</p>
+<p>
+Then add a post-build action:
+
+<img src="http://specems.github.io/jenkins-rhnpush-plugin/images/add-post-build-action.png" alt="Add post-build action"/>
+</p>
+<p>
+And finally select the RPM(s) to push to which channels:
+
+<img src="http://specems.github.io/jenkins-rhnpush-plugin/images/job_config.png" alt="Add RPMs to push"/>
+</p>
       </section>
     </div>
 
