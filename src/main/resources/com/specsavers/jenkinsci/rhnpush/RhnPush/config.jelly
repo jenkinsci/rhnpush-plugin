@@ -1,0 +1,64 @@
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+
+  <f:radioBlock title="${%Globally configured satellite server}" name="serverType" value="global" checked="${instance.serverType == 'global'}" inline="true" >
+
+    <f:entry field="satelliteServerHostname" >
+      <f:select />
+    </f:entry>
+
+  </f:radioBlock>
+
+  <f:radioBlock title="${%Build specific satellite server}" name="serverType" value="build" checked="${instance.serverType == 'build'}" inline="true" >
+
+    <f:entry field="server" title="${%server}">
+      <f:textbox />
+    </f:entry>
+
+    <f:entry title="${%username}" field="username">
+      <f:textbox />
+    </f:entry>
+
+    <f:entry title="${%password}" field="password">
+      <f:password />
+    </f:entry>
+
+  </f:radioBlock>
+
+  <f:advanced>
+    <f:entry field="deployEvenBuildFail">
+      <f:checkbox checked="${instance.deployEvenBuildFail}" />
+      <label class="attach-previous">${%deployEvenBuildFail}</label>
+    </f:entry>
+
+    <f:entry field="noGpg">
+      <f:checkbox checked="${instance.noGpg}" />
+      <label class="attach-previous">${%noGpg}</label>
+    </f:entry>
+  </f:advanced>
+  <f:entry title="${%rpmsToPublish}">
+
+    <f:repeatable var="publishedRpms" items="${instance.entries}" minimum="${1}" add="${%addRpm}">
+
+      <table width="100%">
+
+        <f:entry field="includes" title="${%includes}">
+          <f:textbox value="${publishedRpms.includes}" />
+        </f:entry>
+
+        <f:entry field="channels" title="${%channels}">
+          <f:textbox value="${publishedRpms.channels}" />
+        </f:entry>
+
+        <f:entry title="">
+          <div align="right">
+            <f:repeatableDeleteButton />
+          </div>
+        </f:entry>
+
+      </table>
+
+    </f:repeatable>
+
+  </f:entry>
+
+</j:jelly>
