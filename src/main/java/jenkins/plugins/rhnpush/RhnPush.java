@@ -1,5 +1,6 @@
-package com.specems.jenkinsci.rhnpush;
+package jenkins.plugins.rhnpush;
 
+import jenkins.plugins.rhnpush.Messages;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;

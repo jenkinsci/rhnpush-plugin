@@ -1,4 +1,4 @@
-package com.specems.jenkinsci.rhnpush;
+package jenkins.plugins.rhnpush;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 

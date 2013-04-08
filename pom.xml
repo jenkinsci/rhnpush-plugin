@@ -6,12 +6,15 @@
     <version>1.480</version>
   </parent>
 
-  <groupId>com.specems.jenkins-ci.plugins</groupId>
   <artifactId>rhnpush-plugin</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
-  <url>https://github.com/specems/jenkins-rhnpush-plugin</url>
+  <url>https://wiki.jenkins-ci.org/display/JENKINS/rhnpush+Plugin</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <licenses>
     <license>
@@ -41,30 +44,11 @@
   </developers>
   <issueManagement>
     <system>Github Issues</system>
-    <url>https://github.com/specems/jenkins-rhnpush-plugin/issues</url>
+    <url>https://issues.jenkins-ci.org/browse/JENKINS/component/17421</url>
   </issueManagement>
-  <ciManagement>
-    <system>buildhive</system>
-    <url>https://buildhive.cloudbees.com/job/specems/job/jenkins-rhnpush-plugin/</url>
-  </ciManagement>
   <scm>
-    <connection>scm:git:git@github.com:specems/jenkins-rhnpush-plugin.git</connection>
-    <url>scm:git:git@github.com:specems/jenkins-rhnpush-plugin.git</url>
-    <developerConnection>scm:git:git@github.com:specems/jenkins-rhnpush-plugin.git</developerConnection>
+    <connection>scm:git:git@github.com:jenkinsci/rhnpush-plugin.git</connection>
+    <url>scm:git:git@github.com:jenkinsci/rhnpush-plugin.git</url>
+    <developerConnection>scm:git:git@github.com:jenkinsci/rhnpush-plugin.git</developerConnection>
   </scm>
-
-  <!-- get every artifact through repo.jenkins-ci.org, which proxies all the artifacts that we need -->
-  <repositories>
-    <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </pluginRepository>
-  </pluginRepositories>
 </project>
