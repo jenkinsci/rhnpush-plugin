@@ -11,6 +11,48 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
+  <url>https://github.com/specems/jenkins-rhnpush-plugin</url>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+  <organization>
+    <name>SpecEMS</name>
+    <url>http://specems.github.io/</url>
+  </organization>
+  <developers>
+    <developer>
+      <id>jimmidyson</id>
+      <name>Jimmi Dyson</name>
+      <email>jimmidyson@gmail.com</email>
+      <url>http://specems.github.io</url>
+      <organization>SpecEMS</organization>
+      <organizationUrl>http://specems.github.io</organizationUrl>
+      <roles>
+        <role>engineer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>Github Issues</system>
+    <url>https://github.com/specems/jenkins-rhnpush-plugin/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>buildhive</system>
+    <url>https://buildhive.cloudbees.com/job/specems/job/jenkins-rhnpush-plugin/</url>
+  </ciManagement>
+  <scm>
+    <connection>scm:git:git@github.com:specems/jenkins-rhnpush-plugin.git</connection>
+    <url>scm:git:git@github.com:specems/jenkins-rhnpush-plugin.git</url>
+    <developerConnection>scm:git:git@github.com:specems/jenkins-rhnpush-plugin.git</developerConnection>
+  </scm>
+
   <!-- get every artifact through repo.jenkins-ci.org, which proxies all the artifacts that we need -->
   <repositories>
     <repository>
