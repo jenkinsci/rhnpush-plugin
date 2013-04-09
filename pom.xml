@@ -7,7 +7,7 @@
   </parent>
 
   <artifactId>rhnpush-plugin</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <packaging>hpi</packaging>
 
   <url>https://wiki.jenkins-ci.org/display/JENKINS/rhnpush+Plugin</url>
@@ -74,5 +74,6 @@
     <connection>scm:git:git://github.com/jenkinsci/rhnpush-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:jenkinsci/rhnpush-plugin.git</developerConnection>
     <url>http://github.com/jenkinsci/rhnpush-plugin</url>
+    <tag>v0.1</tag>
   </scm>
 </project>
