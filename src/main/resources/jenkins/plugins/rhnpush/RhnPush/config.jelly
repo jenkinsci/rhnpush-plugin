@@ -34,6 +34,10 @@
       <f:checkbox checked="${instance.noGpg}" />
       <label class="attach-previous">${%noGpg}</label>
     </f:entry>
+
+    <f:entry field="force">
+       <f:checkbox value="${instance.force}" checked="${instance.force}" title="${%--force}" />
+    </f:entry>
   </f:advanced>
   <f:entry title="${%rpmsToPublish}">
 
