@@ -99,7 +99,11 @@ public class RhnPush extends Recorder {
   public boolean isNoGpg() {
     return noGpg;
   }
-
+  
+  public boolean isForce() {
+    return force;
+  }
+  
   public String getServer() {
     return server;
   }
