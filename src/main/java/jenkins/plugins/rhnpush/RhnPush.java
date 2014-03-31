@@ -1,6 +1,5 @@
 package jenkins.plugins.rhnpush;
 
-import jenkins.plugins.rhnpush.Messages;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
@@ -35,12 +34,13 @@ import java.util.StringTokenizer;
 public class RhnPush extends Recorder {
 
   private List<RhnPushEntry> entries = Collections.emptyList();
-  private boolean deployEvenBuildFail;
-  private boolean noGpg;
+  private final boolean deployEvenBuildFail;
+  private final boolean noGpg;
+  private final boolean force;
   private String server;
   private String username;
   private Secret password;
-  private String serverType;
+  private final String serverType;
   private String satelliteServerHostname;
 
   @DataBoundConstructor
@@ -51,10 +51,12 @@ public class RhnPush extends Recorder {
                   Secret password,
                   boolean deployEvenBuildFail,
                   boolean noGpg,
+                  boolean force,
                   List<RhnPushEntry> publishedRpms) {
     this.entries = publishedRpms;
     this.deployEvenBuildFail = deployEvenBuildFail;
     this.noGpg = noGpg;
+    this.force = force;
     if (this.entries == null) {
       this.entries = Collections.emptyList();
     }
@@ -97,7 +99,11 @@ public class RhnPush extends Recorder {
   public boolean isNoGpg() {
     return noGpg;
   }
-
+  
+  public boolean isForce() {
+    return force;
+  }
+  
   public String getServer() {
     return server;
   }
@@ -153,7 +159,11 @@ public class RhnPush extends Recorder {
             if (noGpg) {
               command.add("--nosig");
             }
-
+            
+            if (force) {
+              command.add("--force");
+            }
+            
             for (FilePath rpmFilePath : matchedRpms) {
               command.add(rpmFilePath.toURI().normalize().getPath());
             }
