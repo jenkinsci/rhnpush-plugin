@@ -258,7 +258,6 @@ public class RhnPush extends Recorder {
       return FormValidation.validateRequired(value);
     }
 
-
     public FormValidation doCheckUsername(@AncestorInPath AbstractProject project, @QueryParameter String value) throws IOException {
       return FormValidation.validateRequired(value);
     }
