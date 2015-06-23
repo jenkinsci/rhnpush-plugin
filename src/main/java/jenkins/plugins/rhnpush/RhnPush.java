@@ -28,6 +28,7 @@ import org.kohsuke.stapler.StaplerRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -41,10 +42,12 @@ public class RhnPush extends Recorder {
   private String username;
   private Secret password;
   private final String serverType;
+  private String satelliteServerName;
   private String satelliteServerHostname;
 
   @DataBoundConstructor
   public RhnPush(String serverType,
+                  String satelliteServerName,
                   String satelliteServerHostname,
                   String server,
                   String username,
@@ -66,6 +69,7 @@ public class RhnPush extends Recorder {
       this.username = username;
       this.password = password;
     } else {
+      this.satelliteServerName = satelliteServerName;
       this.satelliteServerHostname = satelliteServerHostname;
     }
   }
@@ -193,15 +197,19 @@ public class RhnPush extends Recorder {
     return serverType;
   }
 
+  public String getSatelliteServerName() {
+    return satelliteServerName;
+  }
+  
   public String getSatelliteServerHostname() {
     return satelliteServerHostname;
   }
 
   private SatelliteServer getSatelliteServer() {
     RpmPublisherDescriptor rpmPublisherDescriptor = Jenkins.getInstance().getDescriptorByType(RpmPublisherDescriptor.class);
-    if (!StringUtils.isEmpty(getSatelliteServerHostname()) && !rpmPublisherDescriptor.getSatelliteServers().isEmpty()) {
+    if (!StringUtils.isEmpty(getSatelliteServerName()) && !rpmPublisherDescriptor.getSatelliteServers().isEmpty()) {
       for (SatelliteServer ss : rpmPublisherDescriptor.getSatelliteServers()) {
-        if (StringUtils.equals(getSatelliteServerHostname(), ss.getHostname())) {
+        if (StringUtils.equals(getSatelliteServerName(), ss.getName())) {
           return ss;
         }
       }
@@ -235,10 +243,10 @@ public class RhnPush extends Recorder {
       return satelliteServers;
     }
 
-    public ListBoxModel doFillSatelliteServerHostnameItems() {
+    public ListBoxModel doFillSatelliteServerNameItems() {
       ListBoxModel items = new ListBoxModel();
       for (SatelliteServer satelliteServer : satelliteServers) {
-        items.add(satelliteServer.getHostname(), satelliteServer.getHostname());
+        items.add(satelliteServer.getName(), satelliteServer.getName());
       }
       return items;
     }
@@ -250,6 +258,10 @@ public class RhnPush extends Recorder {
       return true;
     }
 
+    public FormValidation doCheckName(@AncestorInPath AbstractProject project, @QueryParameter String value) throws IOException {
+      return FormValidation.validateRequired(value);
+    }
+    
     public FormValidation doCheckHostname(@AncestorInPath AbstractProject project, @QueryParameter String value) throws IOException {
       return FormValidation.validateRequired(value);
     }

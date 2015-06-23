@@ -4,6 +4,10 @@
 
       <f:repeatable var="satelliteServer" items="${descriptor.satelliteServers}" add="${%Add satellite server}">
         <table style="width:100%">
+          <f:entry field="name" title="${%Server name}">
+            <f:textbox value="${satelliteServer.name}" />
+          </f:entry>
+
           <f:entry field="hostname" title="${%Host name}">
             <f:textbox value="${satelliteServer.hostname}" />
           </f:entry>
