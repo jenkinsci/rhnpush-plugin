@@ -33,6 +33,7 @@ import java.util.StringTokenizer;
 
 public class RhnPush extends Recorder {
 
+  private final boolean newest;
   private List<RhnPushEntry> entries = Collections.emptyList();
   private final boolean deployEvenBuildFail;
   private final boolean noGpg;
@@ -51,11 +52,13 @@ public class RhnPush extends Recorder {
                   Secret password,
                   boolean deployEvenBuildFail,
                   boolean noGpg,
+                  boolean newest,
                   boolean force,
                   List<RhnPushEntry> publishedRpms) {
     this.entries = publishedRpms;
     this.deployEvenBuildFail = deployEvenBuildFail;
     this.noGpg = noGpg;
+    this.newest = newest;
     this.force = force;
     if (this.entries == null) {
       this.entries = Collections.emptyList();
@@ -76,15 +79,8 @@ public class RhnPush extends Recorder {
 
   private boolean isPerformDeployment(AbstractBuild build) {
     Result result = build.getResult();
-    if (result == null) {
-      return true;
-    }
+    return result == null || isDeployEvenBuildFail() || build.getResult().isBetterOrEqualTo(Result.UNSTABLE);
 
-    if (deployEvenBuildFail) {
-      return true;
-    }
-
-    return build.getResult().isBetterOrEqualTo(Result.UNSTABLE);
   }
 
   @SuppressWarnings("unused")
@@ -98,6 +94,10 @@ public class RhnPush extends Recorder {
 
   public boolean isNoGpg() {
     return noGpg;
+  }
+
+  public boolean isNewest() {
+    return newest;
   }
   
   public boolean isForce() {
@@ -136,7 +136,7 @@ public class RhnPush extends Recorder {
 
             command.add("rhnpush");
 
-            if (serverType.toLowerCase().equals("global")) {
+            if (getServerType().toLowerCase().equals("global")) {
               SatelliteServer ss = getSatelliteServer();
               if (ss != null) {
                 command.add("--server=" + ss.getHostname(), "-u", ss.getUsername(), "-p");
@@ -146,8 +146,8 @@ public class RhnPush extends Recorder {
                 return false;
               }
             } else {
-              command.add("--server=" + server, "-u", username, "-p");
-              command.addMasked(password.getPlainText());
+              command.add("--server=" + server, "-u", getUsername(), "-p");
+              command.addMasked(getPassword().getPlainText());
             }
 
             StringTokenizer channelTokenizer = new StringTokenizer(entry.getChannels(), ",");
@@ -156,11 +156,15 @@ public class RhnPush extends Recorder {
               command.add(channelTokenizer.nextToken().trim());
             }
 
-            if (noGpg) {
+            if (isNoGpg()) {
               command.add("--nosig");
             }
+
+            if (isNewest()) {
+              command.add("--newest");
+            }
             
-            if (force) {
+            if (isForce()) {
               command.add("--force");
             }
             

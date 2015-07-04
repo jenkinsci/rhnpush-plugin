@@ -35,6 +35,11 @@
       <label class="attach-previous">${%noGpg}</label>
     </f:entry>
 
+    <f:entry field="newest">
+      <f:checkbox checked="${instance.newest}" />
+      <label class="attach-previous">${%newest}</label>
+    </f:entry>
+
     <f:entry field="force">
        <f:checkbox checked="${instance.force}"/>
        <label class="attach-previous">${%--force}</label>
