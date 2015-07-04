@@ -1,0 +1,5 @@
+<div>
+    Deploy only the artifacts that are newer than those on the server.
+    Please note that source RPMs are special in that their versions are never compared. Therefore, using this option with RHN Satellite Package Pusher will upload source RPMs for the specified channels only if they were not previously uploaded, and binaries built from them exist in those channels.
+    You have to upload a binary rpm before being able to use this option with its source rpm. (uses --newest with rhnpush command).
+</div>
