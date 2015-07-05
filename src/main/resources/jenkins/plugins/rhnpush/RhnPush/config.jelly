@@ -2,7 +2,7 @@
 
   <f:radioBlock title="${%Globally configured satellite server}" name="serverType" value="global" checked="${instance.serverType == 'global'}" inline="true" >
 
-    <f:entry field="satelliteServerHostname" >
+    <f:entry field="satelliteServerName" >
       <f:select />
     </f:entry>
 

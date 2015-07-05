@@ -7,17 +7,23 @@ import hudson.util.Secret;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 public class SatelliteServer extends AbstractDescribableImpl<SatelliteServer> {
+  private final String name;
   private final String hostname;
   private final String username;
   private final Secret password;
 
   @DataBoundConstructor
-  public SatelliteServer(String hostname, String username, Secret password) {
+  public SatelliteServer(String name, String hostname, String username, Secret password) {
+    this.name     = name;
     this.hostname = hostname;
     this.username = username;
     this.password = password;
   }
 
+  public String getName() {
+    return name;
+  }
+  
   public String getHostname() {
     return hostname;
   }
