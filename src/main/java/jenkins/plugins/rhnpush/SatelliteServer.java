@@ -8,18 +8,24 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 public class SatelliteServer extends AbstractDescribableImpl<SatelliteServer> {
   private final String hostname;
+  private final String proxy;
   private final String username;
   private final Secret password;
 
   @DataBoundConstructor
-  public SatelliteServer(String hostname, String username, Secret password) {
+  public SatelliteServer(String hostname, String proxy, String username, Secret password) {
     this.hostname = hostname;
+    this.proxy = proxy;
     this.username = username;
     this.password = password;
   }
 
   public String getHostname() {
     return hostname;
+  }
+
+  public String getProxy() {
+    return proxy;
   }
 
   public String getUsername() {
@@ -29,6 +35,7 @@ public class SatelliteServer extends AbstractDescribableImpl<SatelliteServer> {
   public Secret getPassword() {
     return password;
   }
+  
 
   @Extension
   public static class DescriptorImpl extends Descriptor<SatelliteServer> {

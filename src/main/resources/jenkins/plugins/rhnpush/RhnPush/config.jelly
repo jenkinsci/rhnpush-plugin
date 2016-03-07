@@ -14,6 +14,10 @@
       <f:textbox />
     </f:entry>
 
+    <f:entry title="${%proxy}" field="proxy">
+      <f:proxy />
+    </f:entry>
+
     <f:entry title="${%username}" field="username">
       <f:textbox />
     </f:entry>
@@ -21,6 +25,7 @@
     <f:entry title="${%password}" field="password">
       <f:password />
     </f:entry>
+
 
   </f:radioBlock>
 

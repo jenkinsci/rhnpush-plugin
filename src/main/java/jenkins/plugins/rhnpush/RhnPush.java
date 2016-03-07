@@ -39,6 +39,7 @@ public class RhnPush extends Recorder {
   private final boolean noGpg;
   private final boolean force;
   private String server;
+  private String proxy;
   private String username;
   private Secret password;
   private final String serverType;
@@ -48,6 +49,7 @@ public class RhnPush extends Recorder {
   public RhnPush(String serverType,
                   String satelliteServerHostname,
                   String server,
+                  String proxy,
                   String username,
                   Secret password,
                   boolean deployEvenBuildFail,
@@ -66,6 +68,7 @@ public class RhnPush extends Recorder {
     this.serverType = serverType;
     if (serverType.toLowerCase().equals("build")) {
       this.server = server;
+      this.proxy = proxy;
       this.username = username;
       this.password = password;
     } else {
@@ -107,6 +110,10 @@ public class RhnPush extends Recorder {
   public String getServer() {
     return server;
   }
+  
+  public String getProxy() {
+    return proxy;
+  }
 
   public String getUsername() {
     return username;
@@ -115,6 +122,7 @@ public class RhnPush extends Recorder {
   public Secret getPassword() {
     return password;
   }
+  
 
   @Override
   public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
@@ -141,6 +149,9 @@ public class RhnPush extends Recorder {
               if (ss != null) {
                 command.add("--server=" + ss.getHostname(), "-u", ss.getUsername(), "-p");
                 command.addMasked(ss.getPassword().getPlainText());
+                if(! ss.getProxy().isEmpty()) {
+                  command.add("--proxy="+ss.getProxy());
+                }
               } else {
                 listener.getLogger().println("[RhnPush] - Unknown global satellite server " + getSatelliteServerHostname() + " ...");
                 return false;
@@ -148,8 +159,11 @@ public class RhnPush extends Recorder {
             } else {
               command.add("--server=" + server, "-u", getUsername(), "-p");
               command.addMasked(getPassword().getPlainText());
+              if(! proxy.isEmpty()) {
+                command.add("--proxy="+proxy);
+              }
             }
-
+            
             StringTokenizer channelTokenizer = new StringTokenizer(entry.getChannels(), ",");
             while (channelTokenizer.hasMoreTokens()) {
               command.add("-c");
@@ -167,7 +181,6 @@ public class RhnPush extends Recorder {
             if (isForce()) {
               command.add("--force");
             }
-            
             for (FilePath rpmFilePath : matchedRpms) {
               command.add(rpmFilePath.toURI().normalize().getPath());
             }

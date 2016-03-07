@@ -7,7 +7,11 @@
           <f:entry field="hostname" title="${%Host name}">
             <f:textbox value="${satelliteServer.hostname}" />
           </f:entry>
-
+          
+          <f:entry field="proxy" title="${%Proxy name}">
+            <f:textbox value="${satelliteServer.proxy}" />
+          </f:entry>
+          
           <f:entry field="username" title="${%Username}">
             <f:textbox value="${satelliteServer.username}" />
           </f:entry>
@@ -15,7 +19,7 @@
           <f:entry field="password" title="${%Password}">
             <f:password value="${satelliteServer.password}" />
           </f:entry>
-
+          
           <f:entry title="">
             <div align="right">
               <f:repeatableDeleteButton />
