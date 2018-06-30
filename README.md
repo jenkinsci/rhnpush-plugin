@@ -1,6 +1,6 @@
 # Jenkins RHNPush Plugin
 
-[![Build Status](https://ci.jenkins.io/buildStatus/icon?job=Plugins/rhnpush-plugin/development)](https://ci.jenkins.io/job/Plugins/job/rhnpush-plugin/job/development/)
+[![Build Status](https://ci.jenkins.io/buildStatus/icon?job=Plugins/rhnpush-plugin/master)](https://ci.jenkins.io/job/Plugins/job/rhnpush-plugin/job/master/)
 
 This plugin adds a post-build step to push RPMs to Spacewalk or RHN satellite server.
 
