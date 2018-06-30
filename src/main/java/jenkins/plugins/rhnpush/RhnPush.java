@@ -82,7 +82,7 @@ public class RhnPush extends Recorder {
 
   private boolean isPerformDeployment(AbstractBuild build) {
     Result result = build.getResult();
-    return result == null || isDeployEvenBuildFail() || build.getResult().isBetterOrEqualTo(Result.UNSTABLE);
+    return result == null || isDeployEvenBuildFail() || result.isBetterOrEqualTo(Result.UNSTABLE);
 
   }
 
@@ -102,15 +102,15 @@ public class RhnPush extends Recorder {
   public boolean isNewest() {
     return newest;
   }
-  
+
   public boolean isForce() {
     return force;
   }
-  
+
   public String getServer() {
     return server;
   }
-  
+
   public String getProxy() {
     return proxy;
   }
@@ -122,7 +122,7 @@ public class RhnPush extends Recorder {
   public Secret getPassword() {
     return password;
   }
-  
+
 
   @Override
   public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
@@ -136,7 +136,11 @@ public class RhnPush extends Recorder {
           String rpmGlob = rpmGlobTokenizer.nextToken();
           listener.getLogger().println("[RhnPush] - Publishing " + rpmGlob);
 
-          FilePath[] matchedRpms = build.getWorkspace().list(rpmGlob);
+          FilePath workspace = build.getWorkspace();
+          if (workspace == null) {
+            throw new IllegalStateException("Could not get a workspace.");
+          }
+          FilePath[] matchedRpms = workspace.list(rpmGlob);
           if (ArrayUtils.isEmpty(matchedRpms)) {
             listener.getLogger().println("[RhnPush] - No RPMs matching " + rpmGlob);
           } else {
@@ -163,7 +167,7 @@ public class RhnPush extends Recorder {
                 command.add("--proxy="+proxy);
               }
             }
-            
+
             StringTokenizer channelTokenizer = new StringTokenizer(entry.getChannels(), ",");
             while (channelTokenizer.hasMoreTokens()) {
               command.add("-c");
@@ -177,7 +181,7 @@ public class RhnPush extends Recorder {
             if (isNewest()) {
               command.add("--newest");
             }
-            
+
             if (isForce()) {
               command.add("--force");
             }
@@ -215,7 +219,11 @@ public class RhnPush extends Recorder {
   }
 
   private SatelliteServer getSatelliteServer() {
-    RpmPublisherDescriptor rpmPublisherDescriptor = Jenkins.getInstance().getDescriptorByType(RpmPublisherDescriptor.class);
+    Jenkins jenkins = Jenkins.getInstance();
+    if (jenkins == null) {
+      throw new IllegalStateException("Could not get a Jenkins instance.");
+    }
+    RpmPublisherDescriptor rpmPublisherDescriptor = jenkins.getDescriptorByType(RpmPublisherDescriptor.class);
     if (!StringUtils.isEmpty(getSatelliteServerHostname()) && !rpmPublisherDescriptor.getSatelliteServers().isEmpty()) {
       for (SatelliteServer ss : rpmPublisherDescriptor.getSatelliteServers()) {
         if (StringUtils.equals(getSatelliteServerHostname(), ss.getHostname())) {
@@ -288,11 +296,13 @@ public class RhnPush extends Recorder {
     }
 
     public FormValidation doCheckIncludes(@AncestorInPath AbstractProject project, @QueryParameter String value) throws IOException, InterruptedException {
-      if (project.getSomeWorkspace() != null) {
-        String msg = project.getSomeWorkspace().validateAntFileMask(value);
-        if (msg != null) {
-          return FormValidation.error(msg);
-        }
+      FilePath workspace = project.getWorkspace();
+      if (workspace == null) {
+        throw new IllegalStateException("Could not get a workspace.");
+      }
+      String msg = workspace.validateAntFileMask(value);
+      if (msg != null) {
+        return FormValidation.error(msg);
       }
       return FormValidation.ok();
     }

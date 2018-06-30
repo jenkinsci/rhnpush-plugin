@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 public class RhnPushEntry implements Serializable {
 
+  static final long serialVersionUID = 42L;
+
   @Deprecated
   @SuppressWarnings("unused")
   private transient String id;
