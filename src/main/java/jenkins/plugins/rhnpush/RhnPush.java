@@ -163,7 +163,7 @@ public class RhnPush extends Recorder {
             } else {
               command.add("--server=" + server, "-u", getUsername(), "-p");
               command.addMasked(getPassword().getPlainText());
-              if(! proxy.isEmpty()) {
+              if(proxy != null && ! proxy.isEmpty()) {
                 command.add("--proxy="+proxy);
               }
             }
