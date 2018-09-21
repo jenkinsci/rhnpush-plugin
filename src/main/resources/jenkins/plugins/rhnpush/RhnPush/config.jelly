@@ -16,7 +16,7 @@
     </f:entry>
 
     <f:entry title="${%proxy}" field="proxy">
-      <f:proxy />
+      <f:textbox />
     </f:entry>
 
     <f:entry title="${%username}" field="username">
