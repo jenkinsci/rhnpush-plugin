@@ -12,7 +12,7 @@ Configure some satellite servers in the global config:
 
 Then add a post-build action:
 
-![Add post-build action](httsp://jenkinsci.github.io/rhnpush-plugin/images/add-post-build-action.png)
+![Add post-build action](https://jenkinsci.github.io/rhnpush-plugin/images/add-post-build-action.png)
 
 And finally select the RPM(s) to push to which channels:
 
