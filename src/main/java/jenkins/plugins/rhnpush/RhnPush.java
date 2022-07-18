@@ -7,6 +7,7 @@ import hudson.Proc;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.BuildListener;
+import hudson.model.Item;
 import hudson.model.Result;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
@@ -297,6 +298,7 @@ public class RhnPush extends Recorder {
 
     public FormValidation doCheckIncludes(@AncestorInPath AbstractProject project, @QueryParameter String value) throws IOException, InterruptedException {
       FilePath workspace = project.getWorkspace();
+      project.checkPermission(Item.WORKSPACE);
       if (workspace == null) {
         throw new IllegalStateException("Could not get a workspace.");
       }
